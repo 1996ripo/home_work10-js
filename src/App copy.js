@@ -2,67 +2,64 @@ import './App.css';
 import { FaAngellist, FaRegHandRock, FaRegHandPaper } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 
-const pcChoyces = ['scissors', 'rock', 'paper'];
-
-
 function App() {
+
+  const pcChoyces = [<FaAngellist />, <FaRegHandRock />, <FaRegHandPaper />];
+  const resultList = {
+    'scissorsscissors': 'DROW',
+    'rockrock': 'DROW',
+    'paperpaper': 'DROW',
+    'paperrock': 'WIN',
+    'scissorspaper': 'WIN',
+    'rockscissors': 'WIN',
+    'scissorsrock': 'LOSE',
+    'paperscissors': 'LOSE',
+    'rockpaper': 'LOSE',
+  };
+
+
 
   const [pcRes, setPcRes] = useState('');
   const [uRes, setURes] = useState('');
   const [result, setResult] = useState('test');
 
-  const handlUserChoys = (id) => {
-    const pc = pcChoyces[Math.floor(Math.random() * pcChoyces.length)];
-    setPcRes(pc);
-    if (pc === id) {
-      setResult('DROW');
-      setURes(id);
-    } else if (id === 'scissors') {
-      if (pc === 'rock') {
-        setResult('LOSE');
-      } else {
-        setResult('WIN')
-      };
-      setURes('scissors');
+  const resultFunction = (id) => {
+    if (id === 'scissors') {
+      setURes(<FaAngellist />);
     } else if (id === 'rock') {
-      if (pc === 'paper') {
-        setResult('LOSE');
-      } else {
-        setResult('WIN')
-      };
-      setURes('rock');
+      setURes(<FaRegHandRock />);
     } else {
-      if (pc === 'scissors') {
-        setResult('LOSE');
-      } else {
-        setResult('WIN')
-      };
-      setURes('paper');
+      setURes(<FaRegHandPaper />);
     }
+    let pc = pcChoyces[Math.floor(Math.random() * pcChoyces.length)];
+    console.log(uRes);
+    console.log(pc);
+    setPcRes(pc);
 
   }
 
 
   return <main id='main' className='d-flex'>
     <div className='d-flex' id='people-choice'>
+
       <div id='svgScissors'><FaAngellist />
         <p id='scissors' onClick={
           (e) => {
-            handlUserChoys(e.target.id)
+            resultFunction(e.target.id)
           }} >Scissors</p>
       </div>
 
       <div id='svgRock'><FaRegHandRock />
         <p id='rock' onClick={
           (e) => {
-            handlUserChoys(e.target.id)
+            resultFunction(e.target.id)
           }}>Rock</p>
       </div>
 
       <div id='svgPaper'><FaRegHandPaper />
         <p id='paper' onClick={
           (e) => {
-            handlUserChoys(e.target.id)
+            resultFunction(e.target.id)
           }} >Paper</p>
       </div>
 
@@ -82,7 +79,7 @@ function App() {
         </div>
       </div>
       <div id='showResult' className='d-flex'>
-        {result}
+        {resultList[result]}
       </div>
     </div>
   </main>
