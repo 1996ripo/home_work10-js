@@ -9,7 +9,7 @@ function App() {
 
   const [pcRes, setPcRes] = useState('');
   const [uRes, setURes] = useState('');
-  const [result, setResult] = useState('test');
+  const [result, setResult] = useState('');
 
   const handlUserChoys = (id) => {
     const pc = pcChoyces[Math.floor(Math.random() * pcChoyces.length)];
